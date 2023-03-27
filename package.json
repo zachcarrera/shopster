@@ -1,0 +1,13 @@
+{
+  "name": "shopster",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:api": "npm run --prefix ./apps/api start",
+    "start:client": "npm run --prefix ./apps/client start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
