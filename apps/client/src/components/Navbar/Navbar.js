@@ -10,7 +10,9 @@ export const Navbar = () => {
             >
                 Create a Product
             </Link>
-            <h1 className="text-3xl">Shopster</h1>
+            <Link to="/">
+                <h1 className="text-3xl">Shopster</h1>
+            </Link>
 
             <Link
                 to="/cart"
