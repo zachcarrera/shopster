@@ -1,1 +1,1 @@
-export * from './storeRoutes.js';
+export * from './productRoutes.js';

@@ -14,6 +14,12 @@ export const DashboardView = () => {
                 >
                     View Cart
                 </Link>
+                <Link
+                    to="/create"
+                    className="border px-4 py-2 shadow-sm bg-white hover:bg-gray-50 rounded-md"
+                >
+                    Add Product
+                </Link>
             </nav>
 
             <section>
