@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const DashboardView = () => {
     return (
@@ -7,9 +8,12 @@ export const DashboardView = () => {
                 <h1 className="text-3xl">Shopster</h1>
 
                 {/* TODO: change to Link for cart view */}
-                <span className="border px-4 py-2 shadow-sm bg-white hover:bg-gray-50 rounded-md">
+                <Link
+                    to="/cart"
+                    className="border px-4 py-2 shadow-sm bg-white hover:bg-gray-50 rounded-md"
+                >
                     View Cart
-                </span>
+                </Link>
             </nav>
 
             <section>
@@ -409,6 +413,7 @@ export const DashboardView = () => {
 
                         <div className="lg:col-span-3">
                             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                {/* TODO: map here on products */}
                                 <li>
                                     <span className="group block overflow-hidden">
                                         <img
@@ -488,6 +493,7 @@ export const DashboardView = () => {
                                 </li>
                             </ul>
                             <ol className="mt-8 flex justify-center gap-1 text-xs font-medium">
+                                {/* TODO: map here on pages */}
                                 <li>
                                     <span className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100">
                                         <span className="sr-only">
