@@ -1,1 +1,1 @@
-export * from './storeController.js';
+export * from './productController.js';

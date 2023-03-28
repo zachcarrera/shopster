@@ -2,10 +2,11 @@ import { Routes, Route } from "react-router-dom";
 import {
     DashboardView,
     OneProductView,
-    ShoppingCart,
+    Cart,
     Checkout,
     Success,
     Fail,
+    Create,
 } from "./views";
 
 function App() {
@@ -13,11 +14,12 @@ function App() {
         <div>
             <Routes>
                 <Route path="/" element={<DashboardView />} />
+                <Route path="/cart" element={<Cart />} />
                 <Route path="/products/:_id" element={<OneProductView />} />
-                <Route path="/shoppingcart" element={<ShoppingCart />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/success" element={<Success />} />
                 <Route path="/fail" element={<Fail />} />
+                <Route path="/create" element={<Create />} />
             </Routes>
         </div>
     );

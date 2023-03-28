@@ -1,1 +1,1 @@
-export * from './storeModel.js';
+export * from './productModel.js';
