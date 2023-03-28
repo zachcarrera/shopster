@@ -4,15 +4,36 @@ import { Link } from "react-router-dom";
 export const DashboardView = () => {
     return (
         <div>
-            <nav className="border-b p-4 border-gray-500 flex justify-center gap-2">
+            <nav className="border-b p-4 border-gray-500 flex justify-center gap-12">
+                <Link
+                    to="/products/new"
+                    className="border px-4 py-2 shadow-sm bg-white hover:bg-gray-50 rounded-md"
+                >
+                    Create a Product
+                </Link>
                 <h1 className="text-3xl">Shopster</h1>
 
                 {/* TODO: change to Link for cart view */}
                 <Link
                     to="/cart"
-                    className="border px-4 py-2 shadow-sm bg-white hover:bg-gray-50 rounded-md"
+                    className="border px-4 py-2 shadow-sm bg-white hover:bg-gray-50 rounded-md flex items-center gap-2"
                 >
-                    View Cart
+                    <svg
+                        className="h-4 inline text-gray-500"
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="far"
+                        data-icon="shopping-cart"
+                        role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 576 512"
+                    >
+                        <path
+                            fill="currentColor"
+                            d="M551.991 64H144.28l-8.726-44.608C133.35 8.128 123.478 0 112 0H12C5.373 0 0 5.373 0 12v24c0 6.627 5.373 12 12 12h80.24l69.594 355.701C150.796 415.201 144 430.802 144 448c0 35.346 28.654 64 64 64s64-28.654 64-64a63.681 63.681 0 0 0-8.583-32h145.167a63.681 63.681 0 0 0-8.583 32c0 35.346 28.654 64 64 64 35.346 0 64-28.654 64-64 0-18.136-7.556-34.496-19.676-46.142l1.035-4.757c3.254-14.96-8.142-29.101-23.452-29.101H203.76l-9.39-48h312.405c11.29 0 21.054-7.869 23.452-18.902l45.216-208C578.695 78.139 567.299 64 551.991 64zM208 472c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm256 0c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm23.438-200H184.98l-31.31-160h368.548l-34.78 160z"
+                        ></path>
+                    </svg>
+                    Cart
                 </Link>
             </nav>
 
@@ -415,7 +436,10 @@ export const DashboardView = () => {
                             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                                 {/* TODO: map here on products */}
                                 <li>
-                                    <span className="group block overflow-hidden">
+                                    <Link
+                                        to="/products/1"
+                                        className="group block overflow-hidden"
+                                    >
                                         <img
                                             src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                                             alt=""
@@ -437,11 +461,14 @@ export const DashboardView = () => {
                                                 </span>
                                             </p>
                                         </div>
-                                    </span>
+                                    </Link>
                                 </li>
 
                                 <li>
-                                    <span className="group block overflow-hidden">
+                                    <Link
+                                        to="/products/1"
+                                        className="group block overflow-hidden"
+                                    >
                                         <img
                                             src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                                             alt=""
@@ -463,11 +490,14 @@ export const DashboardView = () => {
                                                 </span>
                                             </p>
                                         </div>
-                                    </span>
+                                    </Link>
                                 </li>
 
                                 <li>
-                                    <span className="group block overflow-hidden">
+                                    <Link
+                                        to="/products/1"
+                                        className="group block overflow-hidden"
+                                    >
                                         <img
                                             src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                                             alt=""
@@ -489,13 +519,13 @@ export const DashboardView = () => {
                                                 </span>
                                             </p>
                                         </div>
-                                    </span>
+                                    </Link>
                                 </li>
                             </ul>
                             <ol className="mt-8 flex justify-center gap-1 text-xs font-medium">
                                 {/* TODO: map here on pages */}
                                 <li>
-                                    <span className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100">
+                                    <Link className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100">
                                         <span className="sr-only">
                                             Prev Page
                                         </span>
@@ -511,13 +541,16 @@ export const DashboardView = () => {
                                                 clip-rule="evenodd"
                                             />
                                         </svg>
-                                    </span>
+                                    </Link>
                                 </li>
 
                                 <li>
-                                    <span className="block h-8 w-8 rounded border border-gray-100 text-center leading-8">
+                                    <Link
+                                        to="/products?page=1"
+                                        className="block h-8 w-8 rounded border border-gray-100 text-center leading-8"
+                                    >
                                         1
-                                    </span>
+                                    </Link>
                                 </li>
 
                                 <li className="block h-8 w-8 rounded border-black bg-black text-center leading-8 text-white">
@@ -525,19 +558,25 @@ export const DashboardView = () => {
                                 </li>
 
                                 <li>
-                                    <span className="block h-8 w-8 rounded border border-gray-100 text-center leading-8">
+                                    <Link
+                                        to="/products?page=3"
+                                        className="block h-8 w-8 rounded border border-gray-100 text-center leading-8"
+                                    >
                                         3
-                                    </span>
+                                    </Link>
                                 </li>
 
                                 <li>
-                                    <span className="block h-8 w-8 rounded border border-gray-100 text-center leading-8">
+                                    <Link
+                                        to="/products?page=4"
+                                        className="block h-8 w-8 rounded border border-gray-100 text-center leading-8"
+                                    >
                                         4
-                                    </span>
+                                    </Link>
                                 </li>
 
                                 <li>
-                                    <span className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100">
+                                    <Link className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100">
                                         <span className="sr-only">
                                             Next Page
                                         </span>
@@ -553,7 +592,7 @@ export const DashboardView = () => {
                                                 clip-rule="evenodd"
                                             />
                                         </svg>
-                                    </span>
+                                    </Link>
                                 </li>
                             </ol>
                         </div>
