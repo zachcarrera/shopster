@@ -5,20 +5,20 @@ Separation of concerns:
 */
 
 import {
-    createStore,
-    getAllStores,
-    getOneStore,
-    deleteStore,
-    updateStore,
-    createManyStores,
+    createProduct,
+    getAllProducts,
+    getOneProduct,
+    deleteProduct,
+    updateProduct,
+    createManyProducts,
 } from '../services/index.js';
 
 import { ApiError } from '../utils/index.js';
 
-export const handleCreateStore = async (req, res, next) => {
+export const handleCreateProduct = async (req, res, next) => {
     try {
-        const store = await createStore(req.body);
-        return res.json(store);
+        const product = await createProduct(req.body);
+        return res.json(product);
     } catch (error) {
         /*
         Pass the error along to the next middleware function that happens before
@@ -29,48 +29,48 @@ export const handleCreateStore = async (req, res, next) => {
 };
 
 // _req naming convention means the param is currently unused.
-export const handleGetAllStores = async (_req, res, next) => {
+export const handleGetAllProducts = async (_req, res, next) => {
     try {
-        const store = await getAllStores();
-        return res.json(store);
+        const product = await getAllProducts();
+        return res.json(product);
     } catch (error) {
         return next(error);
     }
 };
 
-export const handleGetOneStore = async (req, res, next) => {
+export const handleGetOneProduct = async (req, res, next) => {
     try {
-        const store = await getOneStore(req.params.id);
-        return res.json(store);
+        const product = await getOneProduct(req.params.id);
+        return res.json(product);
     } catch (error) {
         return next(error);
     }
 };
 
-export const handleDeleteStore = async (req, res, next) => {
+export const handleDeleteProduct = async (req, res, next) => {
     try {
-        const store = await deleteStore(req.params.id);
-        return res.json(store);
+        const product = await deleteProduct(req.params.id);
+        return res.json(product);
     } catch (error) {
         return next(error);
     }
 };
 
-export const handleUpdateStore = async (req, res, next) => {
+export const handleUpdateProduct = async (req, res, next) => {
     try {
-        const store = await updateStore(req.params.id, req.body);
-        return res.json(store);
+        const product = await updateProduct(req.params.id, req.body);
+        return res.json(product);
     } catch (error) {
         return next(error);
     }
 };
 
-export const handleCreateManyStores = async (req, res, next) => {
+export const handleCreateManyProducts = async (req, res, next) => {
     try {
         if (Array.isArray(req.body) === false) {
             throw new ApiError({ message: 'Request body must be an array.', statusCode: 400 });
         }
-        const settledCreateOutcomes = await createManyStores(req.body);
+        const settledCreateOutcomes = await createManyProducts(req.body);
         return res.json(settledCreateOutcomes);
     } catch (error) {
         return next(error);

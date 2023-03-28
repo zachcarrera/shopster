@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const StoreSchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "name is required"],
@@ -14,7 +14,7 @@ const StoreSchema = new mongoose.Schema({
     image: {
         type: String,
         required: [true, "image is required"],
-        minlength: [3, "image must be at least 3 characters"]
+        minlength: [3, "image must be a URL"]
     },
     price: {
         type: Number,
@@ -28,4 +28,4 @@ const StoreSchema = new mongoose.Schema({
 
 }, {timestamps:true})
 
-export const Store = mongoose.model('Store', StoreSchema);
+export const Product = mongoose.model('Product', ProductSchema);
