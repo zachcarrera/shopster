@@ -1,10 +1,9 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { DashboardView } from "./views";
 
 function App() {
     return (
-        <div className="App">
+        <div>
             <Routes>
                 <Route path="/" element={<DashboardView />} />
             </Routes>
