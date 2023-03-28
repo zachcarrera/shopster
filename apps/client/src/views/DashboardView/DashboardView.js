@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../../components";
+import axios from "axios";
 
 export const DashboardView = () => {
+    const [productList, SetProductList] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:8000/api/product")
+            .then((res) => {
+                SetProductList(res.data);
+            })
+            .catch((error) => console.log(error));
+    }, []);
+
     return (
         <div>
             <Navbar />
@@ -31,13 +43,13 @@ export const DashboardView = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="h-4 w-4"
                             >
                                 <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                     d="M8.25 4.5l7.5 7.5-7.5 7.5"
                                 />
                             </svg>
@@ -92,13 +104,13 @@ export const DashboardView = () => {
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"
                                                     viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
+                                                    strokeWidth="1.5"
                                                     stroke="currentColor"
                                                     className="h-4 w-4"
                                                 >
                                                     <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
                                                         d="M19.5 8.25l-7.5 7.5-7.5-7.5"
                                                     />
                                                 </svg>
@@ -187,13 +199,13 @@ export const DashboardView = () => {
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"
                                                     viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
+                                                    strokeWidth="1.5"
                                                     stroke="currentColor"
                                                     className="h-4 w-4"
                                                 >
                                                     <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
                                                         d="M19.5 8.25l-7.5 7.5-7.5-7.5"
                                                     />
                                                 </svg>
@@ -264,13 +276,13 @@ export const DashboardView = () => {
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"
                                                     viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
+                                                    strokeWidth="1.5"
                                                     stroke="currentColor"
                                                     className="h-4 w-4"
                                                 >
                                                     <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
                                                         d="M19.5 8.25l-7.5 7.5-7.5-7.5"
                                                     />
                                                 </svg>
@@ -402,94 +414,37 @@ export const DashboardView = () => {
                         </div>
 
                         <div className="lg:col-span-3">
+                            {/* map the products to display */}
                             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                                {/* TODO: map here on products */}
-                                <li>
-                                    <Link
-                                        to="/products/1"
-                                        className="group block overflow-hidden"
-                                    >
-                                        <img
-                                            src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                            alt=""
-                                            className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                                        />
+                                {productList.map((product) => (
+                                    <li key={product._id}>
+                                        <Link
+                                            to={`/products/${product._id}`}
+                                            className="group block overflow-hidden"
+                                        >
+                                            <img
+                                                src={product.image}
+                                                alt={`${product.name}`}
+                                                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
+                                            />
+                                            <div className="relative bg-white pt-3">
+                                                <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                                                    {product.name}
+                                                </h3>
 
-                                        <div className="relative bg-white pt-3">
-                                            <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                                                Basic Tee
-                                            </h3>
+                                                <p className="mt-2">
+                                                    <span className="sr-only">
+                                                        Regular Price
+                                                    </span>
 
-                                            <p className="mt-2">
-                                                <span className="sr-only">
-                                                    Regular Price
-                                                </span>
-
-                                                <span className="tracking-wider text-gray-900">
-                                                    £24.00 GBP
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </li>
-
-                                <li>
-                                    <Link
-                                        to="/products/1"
-                                        className="group block overflow-hidden"
-                                    >
-                                        <img
-                                            src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                            alt=""
-                                            className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                                        />
-
-                                        <div className="relative bg-white pt-3">
-                                            <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                                                Basic Tee
-                                            </h3>
-
-                                            <p className="mt-2">
-                                                <span className="sr-only">
-                                                    Regular Price
-                                                </span>
-
-                                                <span className="tracking-wider text-gray-900">
-                                                    £24.00 GBP
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </li>
-
-                                <li>
-                                    <Link
-                                        to="/products/1"
-                                        className="group block overflow-hidden"
-                                    >
-                                        <img
-                                            src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                            alt=""
-                                            className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                                        />
-
-                                        <div className="relative bg-white pt-3">
-                                            <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                                                Basic Tee
-                                            </h3>
-
-                                            <p className="mt-2">
-                                                <span className="sr-only">
-                                                    Regular Price
-                                                </span>
-
-                                                <span className="tracking-wider text-gray-900">
-                                                    £24.00 GBP
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </li>
+                                                    <span className="tracking-wider text-gray-900">
+                                                        ${product.price}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
                             <ol className="mt-8 flex justify-center gap-1 text-xs font-medium">
                                 {/* TODO: map here on pages */}
@@ -505,9 +460,9 @@ export const DashboardView = () => {
                                             fill="currentColor"
                                         >
                                             <path
-                                                fill-rule="evenodd"
+                                                fillRule="evenodd"
                                                 d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                clip-rule="evenodd"
+                                                clipRule="evenodd"
                                             />
                                         </svg>
                                     </Link>
@@ -556,9 +511,9 @@ export const DashboardView = () => {
                                             fill="currentColor"
                                         >
                                             <path
-                                                fill-rule="evenodd"
+                                                fillRule="evenodd"
                                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                clip-rule="evenodd"
+                                                clipRule="evenodd"
                                             />
                                         </svg>
                                     </Link>
