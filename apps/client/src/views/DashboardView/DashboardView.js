@@ -435,7 +435,7 @@ export const DashboardView = () => {
 
                                 <li>
                                     <Link
-                                        to="/products/1"
+                                        to="/product/1"
                                         className="group block overflow-hidden"
                                     >
                                         <img

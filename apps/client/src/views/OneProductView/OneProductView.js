@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useParams, Link } from 'react-router-dom'
 import { Navbar } from "../../components";
 
 export const OneProductView = () => {
+    const [product, setProduct] = useState('')
+
+    const { _id } = useParams()
+
+    useEffect(()=>{
+        axios.get(`http://localhost:8000/api/product/${_id}`)
+            .then(res=>setProduct(res.data))
+            .catch(error=>console.log(error))
+    },[_id])
     return (
         <div>
             {/* <!--
@@ -31,7 +42,7 @@ export const OneProductView = () => {
                         <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
                             <img
                                 alt="Les Paul"
-                                src="https://images.unsplash.com/photo-1456948927036-ad533e53865c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                                src={product.image}
                                 className="aspect-square w-full rounded-xl object-cover"
                             />
 
@@ -63,18 +74,15 @@ export const OneProductView = () => {
                         </div>
 
                         <div className="sticky top-0">
-                            <strong className="rounded-full border border-blue-600 bg-gray-100 px-3 py-0.5 text-xs font-medium tracking-wide text-blue-600">
-                                Pre Order
-                            </strong>
 
                             <div className="mt-8 flex justify-between">
                                 <div className="max-w-[35ch] space-y-2">
                                     <h1 className="text-xl font-bold sm:text-2xl">
-                                        Fun Product That Does Something Cool
+                                    {product.name}
                                     </h1>
 
                                     <p className="text-sm">
-                                        Highest Rated Product
+                                    {product.instock ? "In stock" : "not in stock"}
                                     </p>
 
                                     <div className="-ml-0.5 flex">
@@ -125,18 +133,13 @@ export const OneProductView = () => {
                                     </div>
                                 </div>
 
-                                <p className="text-lg font-bold">$119.99</p>
+                                <p className="text-lg font-bold">${product.price}</p>
                             </div>
 
                             <div className="mt-4">
                                 <div className="prose max-w-none">
                                     <p>
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Ipsa veniam dicta
-                                        beatae eos ex error culpa delectus rem
-                                        tenetur, architecto quam nesciunt, dolor
-                                        veritatis nisi minus inventore, rerum at
-                                        recusandae?
+                                    {product.description}
                                     </p>
                                 </div>
 
@@ -308,12 +311,9 @@ export const OneProductView = () => {
                                         />
                                     </div>
 
-                                    <button
-                                        type="submit"
-                                        className="block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500"
-                                    >
-                                        Add to Cart
-                                    </button>
+                                    <Link to="/cart"  className="block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500">
+                                    Add to Cart
+                                    </Link>
                                 </div>
                             </form>
                         </div>
