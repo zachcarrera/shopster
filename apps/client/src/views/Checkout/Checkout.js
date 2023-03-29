@@ -1,7 +1,40 @@
-import React from "react";
-// import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, Link } from 'react-router-dom'
+import axios from 'axios'
 
 export const Checkout = () => {
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState(0)
+    const [cardNumber, setCardNumber] = useState(0)
+    const [cardExp, setCardExp] = useState(0)
+    const [cardCsv, setCardCsv] = useState(0)
+    const [zipCode, setZipCode] = useState(0)
+ 
+    const navigate = useNavigate()
+
+    const [errorList, setErrorList] = useState([])
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        axios.post(`http://localhost:8000/api/checkouts/new`, { firstName, lastName, email, phone, cardNumber, cardExp, cardCsv, zipCode })
+            .then(res => {
+                const createdCheckout = res.data
+                // view one page
+                navigate(`/success/${createdCheckout._id}`)
+            })
+            .catch(error => {
+                const errorRespondData = error.response.data.errors
+                const tempErrorArray = []
+                for (const eachKey in errorRespondData) {
+                    tempErrorArray.push(errorRespondData[eachKey].message)
+                }
+                setErrorList(tempErrorArray)
+            })
+    }
+
+
     return (
         <div>
 {/*     
@@ -91,103 +124,107 @@ export const Checkout = () => {
 
                     <div className="bg-white py-12 md:py-24">
                         <div className="mx-auto max-w-lg px-4 lg:px-8">
-                            <form className="grid grid-cols-6 gap-4">
+                            <form className="grid grid-cols-6 gap-4" onSubmit={handleSubmit}>
                                 <div className="col-span-3">
                                     <label
-                                        for="FirstName"
+                                        htmlFor="FirstName"
                                         className="block text-xs font-medium text-gray-700"
+
                                     >
                                         First Name
                                     </label>
 
                                     <input
+                                        name="firstName" value={firstName}
                                         type="text"
-                                        id="FirstName"
                                         className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+                                        onChange={event => setFirstName(event.target.value)}
                                     />
                                 </div>
 
                                 <div className="col-span-3">
                                     <label
-                                        for="LastName"
+                                        htmlFor="LastName"
                                         className="block text-xs font-medium text-gray-700"
                                     >
                                         Last Name
                                     </label>
 
                                     <input
+                                        name="lastName" value={lastName}
                                         type="text"
-                                        id="LastName"
                                         className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+                                        onChange={event => setLastName(event.target.value)}
                                     />
                                 </div>
 
                                 <div className="col-span-6">
-                                    <label for="Email" className="block text-xs font-medium text-gray-700">
+                                    <label htmlFor="Email" className="block text-xs font-medium text-gray-700">
                                         Email
                                     </label>
 
                                     <input
+                                        name="email" value={email}
                                         type="email"
-                                        id="Email"
                                         className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+                                        onChange={event => setEmail(event.target.value)}
                                     />
                                 </div>
 
                                 <div className="col-span-6">
-                                    <label for="Phone" className="block text-xs font-medium text-gray-700">
+                                    <label htmlFor="Phone" className="block text-xs font-medium text-gray-700">
                                         Phone
                                     </label>
 
                                     <input
-                                        type="tel"
-                                        id="Phone"
+                                        name="phone" value={phone}
+                                        type="number"
                                         className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+                                        onChange={event => setPhone(event.target.value)}
                                     />
                                 </div>
 
-                                <fieldset className="col-span-6">
-                                    <legend className="block text-sm font-medium text-gray-700">
-                                        Card Details
-                                    </legend>
 
                                     <div className="mt-1 -space-y-px rounded-md bg-white shadow-sm">
                                         <div>
-                                            <label for="CardNumber" className="sr-only"> Card Number </label>
+                                            <label htmlFor="CardNumber" className=""> Card Number </label>
 
                                             <input
+                                                name="cardNumber" value={cardNumber}
                                                 type="text"
-                                                id="CardNumber"
                                                 placeholder="Card Number"
                                                 className="relative mt-1 w-full rounded-t-md border-gray-200 focus:z-10 sm:text-sm"
+                                                onChange={event => setCardNumber(event.target.value)}
                                             />
                                         </div>
 
                                         <div className="flex -space-x-px">
                                             <div className="flex-1">
-                                                <label for="CardExpiry" className="sr-only"> Card Expiry </label>
+                                                <label htmlFor="CardExpiry" className=""> Card Expiry </label>
 
                                                 <input
-                                                    type="text"
-                                                    id="CardExpiry"
+                                                    name="cardExp" value={cardExp}
+                                                    type="date"
                                                     placeholder="Expiry Date"
                                                     className="relative w-full rounded-bl-md border-gray-200 focus:z-10 sm:text-sm"
+                                                    onChange={event => setCardExp(event.target.value)}
                                                 />
                                             </div>
 
+
                                             <div className="flex-1">
-                                                <label for="CardCVC" className="sr-only"> Card CVC </label>
+                                                <label htmlFor="CardCVC" className=""> Card CVC </label>
 
                                                 <input
+                                                    name="cardCsv" value={cardCsv}
                                                     type="text"
-                                                    id="CardCVC"
                                                     placeholder="CVC"
                                                     className="relative w-full rounded-br-md border-gray-200 focus:z-10 sm:text-sm"
+                                                    onChange={event => setCardCsv(event.target.value)}
                                                 />
                                             </div>
                                         </div>
                                     </div>
-                                </fieldset>
 
                                 <fieldset className="col-span-6">
                                     <legend className="block text-sm font-medium text-gray-700">
@@ -196,7 +233,7 @@ export const Checkout = () => {
 
                                     <div className="mt-1 -space-y-px rounded-md bg-white shadow-sm">
                                         <div>
-                                            <label for="Country" className="sr-only">Country</label>
+                                            <label htmlFor="Country" className="sr-only">Country</label>
 
                                             <select
                                                 id="Country"
@@ -215,10 +252,12 @@ export const Checkout = () => {
                                             <label className="sr-only" for="PostalCode"> ZIP/Post Code </label>
 
                                             <input
+                                                name="zipCode" value={zipCode}
                                                 type="text"
                                                 id="PostalCode"
                                                 placeholder="ZIP/Post Code"
                                                 className="relative w-full rounded-b-md border-gray-200 focus:z-10 sm:text-sm"
+                                                onChange={event => setZipCode(event.target.value)}
                                             />
                                         </div>
                                     </div>
@@ -230,6 +269,11 @@ export const Checkout = () => {
                                     >
                                         Pay Now
                                     </button>
+                                    {
+                                        errorList.map((eachError, idx) => (
+                                            <p className='text-red-500' key={idx}>{eachError}</p>
+                                        ))
+                                    }
                                 </div>
                             </form>
                         </div>

@@ -22,7 +22,7 @@ function App() {
                     <Route path="/products/new" element={<Create />} />
                     <Route path="/products/:_id" element={<OneProductView />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/success" element={<Success />} />
+                    <Route path="/success/:_id" element={<Success />} />
                     <Route path="/fail" element={<Fail />} />
                 </Routes>
             </CartContext.Provider>
