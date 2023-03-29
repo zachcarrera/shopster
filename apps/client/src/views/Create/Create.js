@@ -20,7 +20,7 @@ export const Create = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post(`http://localhost:8000/api/product/create`, { name, description, price, inStock, image })
+        axios.post(`http://localhost:8000/api/products/new`, { name, description, price, inStock, image })
             .then(res => {
                 const createdProduct = res.data
                 // view one page

@@ -8,7 +8,7 @@ export const DashboardView = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8000/api/product")
+            .get("http://localhost:8000/api/products")
             .then((res) => {
                 SetProductList(res.data);
             })
@@ -26,9 +26,7 @@ export const DashboardView = () => {
                         </h2>
 
                         <p className="mt-4 max-w-md text-gray-500 mx-auto">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Itaque praesentium cumque iure dicta incidunt
-                            est ipsam, officia dolor fugit natus?
+                            Buy and sell your favorite products at the Shopster Marketplace
                         </p>
                     </header>
 

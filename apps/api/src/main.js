@@ -9,7 +9,7 @@ import * as middleware from './middleware/index.js';
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/api/product', productRouter);
+app.use('/api/products', productRouter);
 app.use(middleware.errorLogger);
 app.use(middleware.errorHandler);
 
