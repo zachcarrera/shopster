@@ -1,7 +1,11 @@
 import React from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../../context";
 
 export const Navbar = () => {
+    const [cart, setCart] = useContext(CartContext);
+
     return (
         <nav className="border-b p-4 border-gray-500 flex justify-center gap-12">
             <Link
@@ -16,7 +20,7 @@ export const Navbar = () => {
 
             <Link
                 to="/cart"
-                className="border px-4 py-2 shadow-sm bg-white hover:bg-gray-50 rounded-md flex items-center gap-2"
+                className="border px-4 py-2 shadow-sm bg-white hover:bg-gray-50 rounded-md flex items-center gap-2 relative"
             >
                 <svg
                     className="h-4 inline text-gray-500"
@@ -34,6 +38,11 @@ export const Navbar = () => {
                     ></path>
                 </svg>
                 Cart
+                {cart.length > 0 && (
+                    <span className="text-xs text-white w-6 h-6 bg-stone-700 inline-flex justify-center items-center rounded-full font-semibold absolute -top-3 -right-3">
+                        {cart.length}
+                    </span>
+                )}
             </Link>
         </nav>
     );
