@@ -99,6 +99,7 @@ export const Cart = () => {
                                                     type="number"
                                                     min="1"
                                                     value={product.quantity}
+                                                    disabled
                                                     id={`${product.name}-qty`}
                                                     className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                                                 />
@@ -232,7 +233,7 @@ export const Cart = () => {
                                         </div>
                                     </dl>
 
-                                    <div className="flex justify-end">
+                                    {/* <div className="flex justify-end">
                                         <span className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +254,7 @@ export const Cart = () => {
                                                 2 Discounts Applied
                                             </p>
                                         </span>
-                                    </div>
+                                    </div> */}
 
                                     <div className="flex justify-end">
                                         <Link
