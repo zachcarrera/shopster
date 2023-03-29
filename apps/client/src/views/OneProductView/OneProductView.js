@@ -1,19 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { useParams, Link } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Navbar } from "../../components";
+import { CartContext } from "../../context";
 
 export const OneProductView = () => {
-    const [product, setProduct] = useState('')
+    const [cart, setCart] = useContext(CartContext);
+    const [product, setProduct] = useState("");
+    const [quantity, setQuantity] = useState(1);
+    const navigate = useNavigate();
 
-    const { _id } = useParams()
+    const { _id } = useParams();
 
-    useEffect(()=>{
-        axios.get(`http://localhost:8000/api/products/${_id}`)
-            .then(res=>setProduct(res.data))
-            .catch(error=>console.log(error))
-    },[_id])
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8000/api/products/${_id}`)
+            .then((res) => setProduct(res.data))
+            .catch((error) => console.log(error));
+    }, [_id]);
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const cartProduct = {
+            ...product,
+            quantity,
+        };
+
+        setCart([...cart, cartProduct]);
+        navigate("/cart");
+    };
 
     return (
         <div>
@@ -76,15 +92,16 @@ export const OneProductView = () => {
                         </div>
 
                         <div className="sticky top-0">
-
                             <div className="mt-8 flex justify-between">
                                 <div className="max-w-[35ch] space-y-2">
                                     <h1 className="text-xl font-bold sm:text-2xl">
-                                    {product.name}
+                                        {product.name}
                                     </h1>
 
                                     <p className="text-sm">
-                                    {product.inStock ? "In stock" : "not in stock"}
+                                        {product.inStock
+                                            ? "In stock"
+                                            : "not in stock"}
                                     </p>
 
                                     <div className="-ml-0.5 flex">
@@ -135,14 +152,14 @@ export const OneProductView = () => {
                                     </div>
                                 </div>
 
-                                <p className="text-lg font-bold">${product.price}</p>
+                                <p className="text-lg font-bold">
+                                    ${product.price}
+                                </p>
                             </div>
 
                             <div className="mt-4">
                                 <div className="prose max-w-none">
-                                    <p>
-                                    {product.description}
-                                    </p>
+                                    <p>{product.description}</p>
                                 </div>
 
                                 <button className="mt-2 text-sm font-medium underline">
@@ -150,7 +167,7 @@ export const OneProductView = () => {
                                 </button>
                             </div>
 
-                            <form className="mt-8">
+                            <form className="mt-8" onSubmit={handleSubmit}>
                                 <fieldset>
                                     <legend className="mb-1 text-sm font-medium">
                                         Color
@@ -158,7 +175,7 @@ export const OneProductView = () => {
 
                                     <div className="flex flex-wrap gap-1">
                                         <label
-                                            for="color_tt"
+                                            htmlFor="color_tt"
                                             className="cursor-pointer"
                                         >
                                             <input
@@ -174,7 +191,7 @@ export const OneProductView = () => {
                                         </label>
 
                                         <label
-                                            for="color_fr"
+                                            htmlFor="color_fr"
                                             className="cursor-pointer"
                                         >
                                             <input
@@ -190,7 +207,7 @@ export const OneProductView = () => {
                                         </label>
 
                                         <label
-                                            for="color_cb"
+                                            htmlFor="color_cb"
                                             className="cursor-pointer"
                                         >
                                             <input
@@ -214,7 +231,7 @@ export const OneProductView = () => {
 
                                     <div className="flex flex-wrap gap-1">
                                         <label
-                                            for="size_xs"
+                                            htmlFor="size_xs"
                                             className="cursor-pointer"
                                         >
                                             <input
@@ -230,7 +247,7 @@ export const OneProductView = () => {
                                         </label>
 
                                         <label
-                                            for="size_s"
+                                            htmlFor="size_s"
                                             className="cursor-pointer"
                                         >
                                             <input
@@ -246,7 +263,7 @@ export const OneProductView = () => {
                                         </label>
 
                                         <label
-                                            for="size_m"
+                                            htmlFor="size_m"
                                             className="cursor-pointer"
                                         >
                                             <input
@@ -262,7 +279,7 @@ export const OneProductView = () => {
                                         </label>
 
                                         <label
-                                            for="size_l"
+                                            htmlFor="size_l"
                                             className="cursor-pointer"
                                         >
                                             <input
@@ -278,7 +295,7 @@ export const OneProductView = () => {
                                         </label>
 
                                         <label
-                                            for="size_xl"
+                                            htmlFor="size_xl"
                                             className="cursor-pointer"
                                         >
                                             <input
@@ -298,7 +315,7 @@ export const OneProductView = () => {
                                 <div className="mt-8 flex gap-4">
                                     <div>
                                         <label
-                                            for="quantity"
+                                            htmlFor="quantity"
                                             className="sr-only"
                                         >
                                             Qty
@@ -308,13 +325,21 @@ export const OneProductView = () => {
                                             type="number"
                                             id="quantity"
                                             min="1"
-                                            value="1"
+                                            value={quantity}
+                                            onChange={(event) =>
+                                                setQuantity(
+                                                    event.target.valueAsNumber
+                                                )
+                                            }
                                             className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                                         />
                                     </div>
 
-                                    <button type='submit' className="block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500">
-                                    Add to Cart
+                                    <button
+                                        type="submit"
+                                        className="block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500"
+                                    >
+                                        Add to Cart
                                     </button>
                                 </div>
                             </form>
