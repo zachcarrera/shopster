@@ -1,5 +1,7 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+
 
 export const Cart = () => {
     return (
@@ -254,12 +256,18 @@ export const Cart = () => {
                                     </div>
 
                                     <div className="flex justify-end">
-                                        <a
+                                        <Link to="/"
+                                            href="#"
+                                            className="mr-2 block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                                        >
+                                            Continue Shopping
+                                        </Link>
+                                        <Link to='/checkout'
                                             href="#"
                                             className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
                                         >
                                             Checkout
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

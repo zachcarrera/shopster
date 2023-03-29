@@ -9,10 +9,12 @@ export const OneProductView = () => {
     const { _id } = useParams()
 
     useEffect(()=>{
-        axios.get(`http://localhost:8000/api/product/${_id}`)
+        axios.get(`http://localhost:8000/api/products/${_id}`)
             .then(res=>setProduct(res.data))
             .catch(error=>console.log(error))
     },[_id])
+
+
     return (
         <div>
             {/* <!--
@@ -82,7 +84,7 @@ export const OneProductView = () => {
                                     </h1>
 
                                     <p className="text-sm">
-                                    {product.instock ? "In stock" : "not in stock"}
+                                    {product.inStock ? "In stock" : "not in stock"}
                                     </p>
 
                                     <div className="-ml-0.5 flex">
@@ -311,9 +313,9 @@ export const OneProductView = () => {
                                         />
                                     </div>
 
-                                    <Link to="/cart"  className="block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500">
+                                    <button type='submit' className="block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500">
                                     Add to Cart
-                                    </Link>
+                                    </button>
                                 </div>
                             </form>
                         </div>
