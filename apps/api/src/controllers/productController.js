@@ -7,13 +7,15 @@ Separation of concerns:
 import {
     createProduct,
     getAllProducts,
+    getAllProductsPriceSortedAsc,
+    getAllProductsPriceSortedDesc,
     getOneProduct,
     deleteProduct,
     updateProduct,
     createManyProducts,
-} from '../services/index.js';
+} from "../services/index.js";
 
-import { ApiError } from '../utils/index.js';
+import { ApiError } from "../utils/index.js";
 
 export const handleCreateProduct = async (req, res, next) => {
     try {
@@ -33,6 +35,24 @@ export const handleGetAllProducts = async (_req, res, next) => {
     try {
         const product = await getAllProducts();
         return res.json(product);
+    } catch (error) {
+        return next(error);
+    }
+};
+
+export const handleGetAllProductsPriceSortedAsc = async (req, res, next) => {
+    try {
+        const products = await getAllProductsPriceSortedAsc();
+        return res.json(products);
+    } catch (error) {
+        return next(error);
+    }
+};
+
+export const handleGetAllProductsPriceSortedDesc = async (req, res, next) => {
+    try {
+        const products = await getAllProductsPriceSortedDesc();
+        return res.json(products);
     } catch (error) {
         return next(error);
     }
@@ -68,7 +88,10 @@ export const handleUpdateProduct = async (req, res, next) => {
 export const handleCreateManyProducts = async (req, res, next) => {
     try {
         if (Array.isArray(req.body) === false) {
-            throw new ApiError({ message: 'Request body must be an array.', statusCode: 400 });
+            throw new ApiError({
+                message: "Request body must be an array.",
+                statusCode: 400,
+            });
         }
         const settledCreateOutcomes = await createManyProducts(req.body);
         return res.json(settledCreateOutcomes);

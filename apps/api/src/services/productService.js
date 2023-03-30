@@ -3,7 +3,7 @@ This service is NOT concerned with req and res, it doesn't know or care about
 it.
 */
 
-import { Product } from '../models/index.js';
+import { Product } from "../models/index.js";
 
 export const createProduct = async (data) => {
     const newProduct = await Product.create(data);
@@ -11,6 +11,12 @@ export const createProduct = async (data) => {
 };
 
 export const getAllProducts = async () => Product.find();
+
+export const getAllProductsPriceSortedAsc = async () =>
+    Product.find().sort({ price: "asc" });
+
+export const getAllProductsPriceSortedDesc = async () =>
+    Product.find().sort({ price: "desc" });
 
 export const getOneProduct = async (id) => Product.findById(id);
 
