@@ -9,7 +9,7 @@ export const Checkout = () => {
     const [phone, setPhone] = useState(0)
     const [cardNumber, setCardNumber] = useState(0)
     const [cardExp, setCardExp] = useState(0)
-    const [cardCsv, setCardCsv] = useState(0)
+    const [cardCVC, setCardCVC] = useState(0)
     const [zipCode, setZipCode] = useState(0)
  
     const navigate = useNavigate()
@@ -18,7 +18,7 @@ export const Checkout = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post(`http://localhost:8000/api/checkouts/new`, { firstName, lastName, email, phone, cardNumber, cardExp, cardCsv, zipCode })
+        axios.post(`http://localhost:8000/api/checkouts/new`, { firstName, lastName, email, phone, cardNumber, cardExp, cardCVC, zipCode })
             .then(res => {
                 const createdCheckout = res.data
                 // view one page
@@ -55,7 +55,7 @@ export const Checkout = () => {
                             <div className="flex items-center gap-4">
                                 <span className="h-10 w-10 rounded-full bg-blue-700"></span>
 
-                                <h2 className="font-medium text-gray-900">BambooYou</h2>
+                                <h2 className="font-medium text-gray-900">Shopster</h2>
                             </div>
 
                             <div>
@@ -187,7 +187,7 @@ export const Checkout = () => {
 
                                     <div className="mt-1 -space-y-px rounded-md bg-white shadow-sm">
                                         <div>
-                                            <label htmlFor="CardNumber" className=""> Card Number </label>
+                                            <label htmlFor="CardNumber" className="block text-xs font-medium text-gray-700"> Card Number </label>
 
                                             <input
                                                 name="cardNumber" value={cardNumber}
@@ -200,7 +200,7 @@ export const Checkout = () => {
 
                                         <div className="flex -space-x-px">
                                             <div className="flex-1">
-                                                <label htmlFor="CardExpiry" className=""> Card Expiry </label>
+                                                <label htmlFor="CardExpiry" className="block text-xs font-medium text-gray-700"> Card Expiry </label>
 
                                                 <input
                                                     name="cardExp" value={cardExp}
@@ -213,26 +213,26 @@ export const Checkout = () => {
 
 
                                             <div className="flex-1">
-                                                <label htmlFor="CardCVC" className=""> Card CVC </label>
+                                                <label htmlFor="CardCVC" className="block text-xs font-medium text-gray-700"> Card CVC </label>
 
                                                 <input
-                                                    name="cardCsv" value={cardCsv}
+                                                    name="cardCVC" value={cardCVC}
                                                     type="text"
                                                     placeholder="CVC"
                                                     className="relative w-full rounded-br-md border-gray-200 focus:z-10 sm:text-sm"
-                                                    onChange={event => setCardCsv(event.target.value)}
+                                                    onChange={event => setCardCVC(event.target.value)}
                                                 />
                                             </div>
                                         </div>
                                     </div>
 
                                 <fieldset className="col-span-6">
-                                    <legend className="block text-sm font-medium text-gray-700">
-                                        Billing Address
-                                    </legend>
+                                    {/* <legend className="block text-sm font-medium text-gray-700">
+                                        Billing Zip Code
+                                    </legend> */}
 
                                     <div className="mt-1 -space-y-px rounded-md bg-white shadow-sm">
-                                        <div>
+                                        {/* <div>
                                             <label htmlFor="Country" className="sr-only">Country</label>
 
                                             <select
@@ -246,10 +246,10 @@ export const Checkout = () => {
                                                 <option>Belgium</option>
                                                 <option>Japan</option>
                                             </select>
-                                        </div>
+                                        </div> */}
 
                                         <div>
-                                            <label className="sr-only" for="PostalCode"> ZIP/Post Code </label>
+                                            <label className="block text-xs font-medium text-gray-700" for="PostalCode"> ZIP/Post Code </label>
 
                                             <input
                                                 name="zipCode" value={zipCode}

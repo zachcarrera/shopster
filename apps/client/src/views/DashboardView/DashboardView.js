@@ -30,7 +30,7 @@ export const DashboardView = () => {
                         </p>
                     </header>
 
-                    <div className="mt-8 block lg:hidden">
+                    {/* <div className="mt-8 block lg:hidden">
                         <button className="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
                             <span className="text-sm font-medium">
                                 {" "}
@@ -52,7 +52,7 @@ export const DashboardView = () => {
                                 />
                             </svg>
                         </button>
-                    </div>
+                    </div> */}
 
                     <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
                         <div className="hidden space-y-4 lg:block">
@@ -69,12 +69,12 @@ export const DashboardView = () => {
                                     className="mt-1 rounded border-gray-300 text-sm"
                                 >
                                     <option>Sort By</option>
-                                    <option value="Title, DESC">
+                                    {/* <option value="Title, DESC">
                                         Title, DESC
                                     </option>
                                     <option value="Title, ASC">
                                         Title, ASC
-                                    </option>
+                                    </option> */}
                                     <option value="Price, DESC">
                                         Price, DESC
                                     </option>
@@ -90,7 +90,7 @@ export const DashboardView = () => {
                                 </p>
 
                                 <div className="mt-1 space-y-2">
-                                    <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
+                                    {/* <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
                                         <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
                                             <span className="text-sm font-medium">
                                                 {" "}
@@ -183,7 +183,7 @@ export const DashboardView = () => {
                                                 </li>
                                             </ul>
                                         </div>
-                                    </details>
+                                    </details> */}
 
                                     <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
                                         <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
@@ -262,7 +262,7 @@ export const DashboardView = () => {
                                         </div>
                                     </details>
 
-                                    <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
+                                    {/* <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
                                         <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
                                             <span className="text-sm font-medium">
                                                 {" "}
@@ -302,7 +302,7 @@ export const DashboardView = () => {
                                                 </button>
                                             </header>
 
-                                            <ul className="space-y-1 border-t border-gray-200 p-4">
+                                            {/* <ul className="space-y-1 border-t border-gray-200 p-4">
                                                 <li>
                                                     <label
                                                         htmlFor="FilterRed"
@@ -404,10 +404,10 @@ export const DashboardView = () => {
                                                         </span>
                                                     </label>
                                                 </li>
-                                            </ul>
+                                            </ul> 
                                         </div>
-                                    </details>
-                                </div>
+                                    </details>  
+                */}                </div>
                             </div>
                         </div>
 
@@ -444,8 +444,8 @@ export const DashboardView = () => {
                                     </li>
                                 ))}
                             </ul>
-                            <ol className="mt-8 flex justify-center gap-1 text-xs font-medium">
-                                {/* TODO: map here on pages */}
+                            {/* TODO: map here on pages */}
+                            {/* <ol className="mt-8 flex justify-center gap-1 text-xs font-medium">
                                 <li>
                                     <Link className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100">
                                         <span className="sr-only">
@@ -516,7 +516,7 @@ export const DashboardView = () => {
                                         </svg>
                                     </Link>
                                 </li>
-                            </ol>
+                            </ol> */}
                         </div>
                     </div>
                 </div>

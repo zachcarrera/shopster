@@ -26,9 +26,9 @@ const CheckoutSchema = new mongoose.Schema({
         required: [true, "card Number is required"],
         min: [15, "Price must be greater than 0 !"]
     },
-    cardCsv: {
+    cardCVC: {
         type: Number,
-        required: [true, "card Csv is required"],
+        required: [true, "card CVC is required"],
         min: [3, "Price must be greater than 0 !"]
     },
     zipCode: {
