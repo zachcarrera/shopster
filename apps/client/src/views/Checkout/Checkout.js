@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CartContext } from "../../context";
+import { Navbar } from "../../components";
+
 
 export const Checkout = () => {
     const [cart, setCart] = useContext(CartContext);
@@ -55,6 +57,9 @@ export const Checkout = () => {
 
     return (
         <div>
+
+            <Navbar/>
+
             {/*     
             This component uses @tailwindcss/forms
 

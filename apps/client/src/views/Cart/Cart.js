@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Navbar } from "../../components";
 import { CartContext } from "../../context";
 
 export const Cart = () => {
@@ -19,6 +20,7 @@ export const Cart = () => {
 
     return (
         <div>
+            <Navbar/>
             {/* <!--
             This component uses @tailwindcss/forms
 
