@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom'
+import { Navbar } from "../../components";
 import axios from 'axios'
 
 export const Checkout = () => {
@@ -37,6 +38,7 @@ export const Checkout = () => {
 
     return (
         <div>
+            <Navbar/>
 {/*     
             This component uses @tailwindcss/forms
 

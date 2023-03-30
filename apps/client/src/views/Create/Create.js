@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { Navbar } from "../../components";
 import { useNavigate, Link } from 'react-router-dom'
 
 // 1. form input : onChange -- state
@@ -38,6 +39,7 @@ export const Create = () => {
 
     return (
         <div>
+            <Navbar />
             <h2 className='text-center text-xl mb-5'> Add a product to the Shopster marketplace</h2>
             <form className='form max-w-md mx-auto' onSubmit={handleSubmit}>
                 <div className='mb-4'>
