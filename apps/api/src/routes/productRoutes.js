@@ -5,6 +5,7 @@ import {
     handleCreateManyProducts,
     handleGetAllProducts,
     handleGetAllProductsPriceSortedAsc,
+    handleGetAllProductsPriceSortedDesc,
     handleGetOneProduct,
     handleUpdateProduct,
     handleDeleteProduct,
@@ -18,6 +19,7 @@ productRouter.post("/new", handleCreateProduct);
 productRouter.post("/many", handleCreateManyProducts);
 productRouter.get("/", handleGetAllProducts);
 productRouter.get("/sort/price/asc", handleGetAllProductsPriceSortedAsc);
+productRouter.get("/sort/price/desc", handleGetAllProductsPriceSortedDesc);
 productRouter.get("/:id", handleGetOneProduct);
 productRouter.put("/:id", handleUpdateProduct);
 productRouter.delete("/:id", handleDeleteProduct);

@@ -8,6 +8,7 @@ import {
     createProduct,
     getAllProducts,
     getAllProductsPriceSortedAsc,
+    getAllProductsPriceSortedDesc,
     getOneProduct,
     deleteProduct,
     updateProduct,
@@ -42,6 +43,15 @@ export const handleGetAllProducts = async (_req, res, next) => {
 export const handleGetAllProductsPriceSortedAsc = async (req, res, next) => {
     try {
         const products = await getAllProductsPriceSortedAsc();
+        return res.json(products);
+    } catch (error) {
+        return next(error);
+    }
+};
+
+export const handleGetAllProductsPriceSortedDesc = async (req, res, next) => {
+    try {
+        const products = await getAllProductsPriceSortedDesc();
         return res.json(products);
     } catch (error) {
         return next(error);

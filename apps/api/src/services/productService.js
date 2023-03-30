@@ -15,6 +15,9 @@ export const getAllProducts = async () => Product.find();
 export const getAllProductsPriceSortedAsc = async () =>
     Product.find().sort({ price: "asc" });
 
+export const getAllProductsPriceSortedDesc = async () =>
+    Product.find().sort({ price: "desc" });
+
 export const getOneProduct = async (id) => Product.findById(id);
 
 export const deleteProduct = async (id) => Product.findByIdAndDelete(id);
