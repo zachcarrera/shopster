@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Navbar } from "../../components";
 import { CartContext } from "../../context";
 
@@ -63,32 +63,6 @@ export const OneProductView = () => {
                                 src={product.image}
                                 className="aspect-square w-full rounded-xl object-cover"
                             />
-
-                            {/* <div className="grid grid-cols-2 gap-4 lg:mt-4">
-                                <img
-                                    alt="Les Paul"
-                                    src="https://images.unsplash.com/photo-1456948927036-ad533e53865c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                    className="aspect-square w-full rounded-xl object-cover"
-                                />
-
-                                <img
-                                    alt="Les Paul"
-                                    src="https://images.unsplash.com/photo-1456948927036-ad533e53865c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                    className="aspect-square w-full rounded-xl object-cover"
-                                />
-
-                                <img
-                                    alt="Les Paul"
-                                    src="https://images.unsplash.com/photo-1456948927036-ad533e53865c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                    className="aspect-square w-full rounded-xl object-cover"
-                                />
-
-                                <img
-                                    alt="Les Paul"
-                                    src="https://images.unsplash.com/photo-1456948927036-ad533e53865c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                    className="aspect-square w-full rounded-xl object-cover"
-                                />
-                            </div> */}
                         </div>
 
                         <div className="sticky top-0">
@@ -101,7 +75,7 @@ export const OneProductView = () => {
                                     <p className="text-sm">
                                         {product.inStock
                                             ? "In stock"
-                                            : "not in stock"}
+                                            : "Not in stock"}
                                     </p>
 
                                     {/* <div className="-ml-0.5 flex">
@@ -337,7 +311,8 @@ export const OneProductView = () => {
 
                                     <button
                                         type="submit"
-                                        className="block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500"
+                                        className="block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500 disabled:bg-gray-500"
+                                        disabled={!product.inStock}
                                     >
                                         Add to Cart
                                     </button>
