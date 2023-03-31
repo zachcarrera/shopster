@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import {
+    DashboardView,
+    OneProductView,
+    Cart,
+    Checkout,
+    Success,
+    Fail,
+    Create,
+} from "./views";
+import { useState } from "react";
+import { CartContext } from "./context";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [cart, setCart] = useState([]);
+    return (
+        <div>
+            <CartContext.Provider value={[cart, setCart]}>
+                <Routes>
+                    <Route path="/" element={<DashboardView />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/products/new" element={<Create />} />
+                    <Route path="/products/:_id" element={<OneProductView />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/success/:_id" element={<Success />} />
+                    <Route path="/fail" element={<Fail />} />
+                </Routes>
+            </CartContext.Provider>
+        </div>
+    );
 }
 
 export default App;
