@@ -28,9 +28,9 @@ export const handleCreateProduct = async (
         return res.json(product);
     } catch (error) {
         /*
-                                                                                            Pass the error along to the next middleware function that happens before
-                                                                                            the response. See the middleware being added in `main.js` with `app.use`.
-                                                                                            */
+        Pass the error along to the next middleware function that happens before
+        the response. See the middleware being added in `main.js` with `app.use`.
+        */
         return next(error);
     }
 };
