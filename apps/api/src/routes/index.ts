@@ -1,2 +1,2 @@
-export * from './productRoutes.js';
-export * from './checkoutRoutes.js';
+export * from "./productRoutes";
+export * from "./checkoutRoutes";
