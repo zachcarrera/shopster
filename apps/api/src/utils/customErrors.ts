@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 /**
  * Represents an error related to a model field.
@@ -38,9 +38,9 @@ export class FieldError {
 export class ApiError extends Error {
     constructor({ message, statusCode = 500, cause }) {
         if (cause instanceof Error) {
-            super(typeof message === 'string' ? message : cause.message);
+            super(typeof message === "string" ? message : cause.message);
         } else {
-            super(typeof message === 'string' ? message : 'Unexpected error.');
+            super(typeof message === "string" ? message : "Unexpected error.");
         }
 
         /** To be used with `res.status` */
@@ -105,17 +105,22 @@ export class NormalizedValidationError extends ApiError {
      * @param {import("mongoose").Error.ValidationError} mongooseValidationError
      */
     normalizeMongooseValidationError(mongooseValidationError) {
-        Object.entries(mongooseValidationError.errors).forEach(([fieldName, fieldError]) => {
-            const { message, value } = fieldError;
+        Object.entries(mongooseValidationError.errors).forEach(
+            ([fieldName, fieldError]) => {
+                const { message, value } = fieldError;
 
-            // The Cast Error message should be more user-readable. Normally it looks like:
-            // "Cast to ObjectId failed for value \"foo\" (type string) at path \"_id\" for model \"Destination\"
-            const finalMessage = fieldError instanceof mongoose.Error.CastError ? 'invalid format' : message;
+                // The Cast Error message should be more user-readable. Normally it looks like:
+                // "Cast to ObjectId failed for value \"foo\" (type string) at path \"_id\" for model \"Destination\"
+                const finalMessage =
+                    fieldError instanceof mongoose.Error.CastError
+                        ? "invalid format"
+                        : message;
 
-            // To make each error inside a validation error consistent, whether it's a FieldError or CastError they are both
-            // converted to a normalized FieldError structure.
-            this.addFieldError(new FieldError(fieldName, finalMessage, value));
-        });
+                // To make each error inside a validation error consistent, whether it's a FieldError or CastError they are both
+                // converted to a normalized FieldError structure.
+                this.addFieldError(new FieldError(fieldName, finalMessage, value));
+            }
+        );
     }
 
     /**
@@ -138,7 +143,10 @@ export class NormalizedCastError extends ApiError {
      * @param {import("mongoose").Error.CastError} castError
      */
     constructor(castError) {
-        super({ message: `${castError.value} is an invalid format`, statusCode: 400 });
+        super({
+            message: `${castError.value} is an invalid format`,
+            statusCode: 400,
+        });
     }
 }
 
