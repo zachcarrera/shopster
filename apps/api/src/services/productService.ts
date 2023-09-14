@@ -3,7 +3,7 @@ This service is NOT concerned with req and res, it doesn't know or care about
 it.
 */
 
-import { Product } from "../models/index.js";
+import { Product, IProduct } from "../models/index";
 
 export const createProduct = async (data) => {
     const newProduct = await Product.create(data);
