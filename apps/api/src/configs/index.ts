@@ -1,1 +1,1 @@
-import './mongooseConfig.js';
+import "./mongooseConfig";
