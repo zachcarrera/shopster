@@ -9,7 +9,7 @@ import {
     handleGetOneProduct,
     handleUpdateProduct,
     handleDeleteProduct,
-} from "../controllers/index.js";
+} from "../controllers/index";
 
 const productRouter = express.Router();
 /*

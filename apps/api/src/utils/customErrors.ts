@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose, { CastError } from "mongoose";
 
 /**
  * Represents an error related to a model field.
  */
 export class FieldError {
-    constructor(fieldName, message, givenValue) {
-        this.fieldName = fieldName;
-        this.message = message;
-        this.value = givenValue;
-    }
+    constructor(
+        public fieldName: string,
+        public message: string,
+        public value: string
+    ) { }
 }
 
 /**
@@ -36,12 +36,17 @@ export class FieldError {
  * ```
  */
 export class ApiError extends Error {
-    constructor({ message, statusCode = 500, cause }) {
-        if (cause instanceof Error) {
-            super(typeof message === 'string' ? message : cause.message);
-        } else {
-            super(typeof message === 'string' ? message : 'Unexpected error.');
-        }
+    statusCode: number;
+    constructor({
+        message,
+        statusCode = 500,
+        cause,
+    }: {
+        message: string;
+        statusCode?: number;
+        cause: unknown;
+    }) {
+        super(message);
 
         /** To be used with `res.status` */
         this.statusCode = statusCode;
@@ -81,7 +86,9 @@ source code to see the structure of a libraries errors.
  * this 'normalized' structure.
  */
 export class NormalizedValidationError extends ApiError {
-    constructor(error) {
+    errors: Record<FieldError["fieldName"], FieldError>;
+    // name: FieldError["fieldName"];
+    constructor(error: Error) {
         super({ message: error.message, statusCode: 400, cause: error });
 
         this.errors = {};
@@ -93,29 +100,30 @@ export class NormalizedValidationError extends ApiError {
     } */
     }
 
-    /**
-     * @param {FieldError} fieldError
-     */
-    addFieldError(fieldError) {
+    addFieldError(fieldError: FieldError) {
         this.errors[fieldError.fieldName] = fieldError;
         return this;
     }
 
-    /**
-     * @param {import("mongoose").Error.ValidationError} mongooseValidationError
-     */
-    normalizeMongooseValidationError(mongooseValidationError) {
-        Object.entries(mongooseValidationError.errors).forEach(([fieldName, fieldError]) => {
-            const { message, value } = fieldError;
+    normalizeMongooseValidationError(
+        mongooseValidationError: mongoose.Error.ValidationError
+    ) {
+        Object.entries(mongooseValidationError.errors).forEach(
+            ([fieldName, fieldError]) => {
+                const { message, value } = fieldError;
 
-            // The Cast Error message should be more user-readable. Normally it looks like:
-            // "Cast to ObjectId failed for value \"foo\" (type string) at path \"_id\" for model \"Destination\"
-            const finalMessage = fieldError instanceof mongoose.Error.CastError ? 'invalid format' : message;
+                // The Cast Error message should be more user-readable. Normally it looks like:
+                // "Cast to ObjectId failed for value \"foo\" (type string) at path \"_id\" for model \"Destination\"
+                const finalMessage =
+                    fieldError instanceof mongoose.Error.CastError
+                        ? "invalid format"
+                        : message;
 
-            // To make each error inside a validation error consistent, whether it's a FieldError or CastError they are both
-            // converted to a normalized FieldError structure.
-            this.addFieldError(new FieldError(fieldName, finalMessage, value));
-        });
+                // To make each error inside a validation error consistent, whether it's a FieldError or CastError they are both
+                // converted to a normalized FieldError structure.
+                this.addFieldError(new FieldError(fieldName, finalMessage, value));
+            }
+        );
     }
 
     /**
@@ -134,11 +142,12 @@ export class NormalizedValidationError extends ApiError {
  * a cast error can also happen alone, such as when an invalid id format is provided for a database query.
  */
 export class NormalizedCastError extends ApiError {
-    /**
-     * @param {import("mongoose").Error.CastError} castError
-     */
-    constructor(castError) {
-        super({ message: `${castError.value} is an invalid format`, statusCode: 400 });
+    constructor(castError: CastError) {
+        super({
+            message: `${castError.value} is an invalid format`,
+            statusCode: 400,
+            cause: castError,
+        });
     }
 }
 
@@ -147,7 +156,7 @@ export class NormalizedCastError extends ApiError {
  * changing what database is used, the consumers of the api don't get wildly different error structures returned for
  * things like validation errors, for example.
  */
-export const normalizeErrors = (error) => {
+export const normalizeErrors = (error: Error) => {
     if (error instanceof mongoose.Error.ValidationError) {
         return new NormalizedValidationError(error);
     }
@@ -161,5 +170,5 @@ export const normalizeErrors = (error) => {
     }
 
     // The error is a native Error or some other extended error not yet handled.
-    return new ApiError({ cause: error });
+    return new ApiError({ message: error.message, cause: error });
 };
