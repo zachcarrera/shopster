@@ -1,22 +1,23 @@
 // eslint-disable-next-line no-unused-vars
-import { request, response } from 'express';
-import mongoose from 'mongoose';
+// import { request, response } from "express";
+import { Request, Response, NextFunction } from "express";
 
-import { normalizeErrors } from '../utils/index.js';
+import { normalizeErrors } from "../utils/index.js";
 
 /*
-These error util functions are added as middleware in `api/main.js` via
+These error util functions are added as middleware in `api/main.ts` via
 `app.use`.
 */
 
 /**
  * @see https://expressjs.com/en/guide/error-handling.html
- * @param {object | Error} error
- * @param {request} _req
- * @param {response} res
- * @param {Function} next
  */
-export const errorLogger = (error, _req, _res, next) => {
+export const errorLogger = (
+    error: Error,
+    _req: Request,
+    _res: Response,
+    next: NextFunction
+) => {
     console.error(error);
     return next(error);
 };
@@ -25,12 +26,13 @@ export const errorLogger = (error, _req, _res, next) => {
  * Catch-all error handler. Any error handling that needs to happen for
  * all errors can happen here.
  * @see [Section: 'The default error handler'](https://expressjs.com/en/guide/error-handling.html)
- * @param {object | Error} error
- * @param {request} _req
- * @param {response} res
- * @param {Function} next
  */
-export const errorHandler = (error, _req, res, next) => {
+export const errorHandler = (
+    error: Error,
+    _req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     if (res.headersSent) {
         return next(error);
     }
