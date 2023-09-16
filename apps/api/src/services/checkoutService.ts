@@ -3,33 +3,28 @@ This service is NOT concerned with req and res, it doesn't know or care about
 it.
 */
 
-import { Checkout } from "../models/index";
+import { ObjectId } from "mongoose";
+import { Checkout, ICheckout } from "../models/index";
 
-export const createCheckout = async (data) => {
+export const createCheckout = async (data: ICheckout) => {
     const newCheckout = await Checkout.create(data);
     return newCheckout;
 };
 
 export const getAllCheckouts = async () => Checkout.find();
 
-export const getOneCheckout = async (id) => Checkout.findById(id);
+export const getOneCheckout = async (id: ObjectId) => Checkout.findById(id);
 
-export const deleteCheckout = async (id) => Checkout.findByIdAndDelete(id);
+export const deleteCheckout = async (id: ObjectId) =>
+    Checkout.findByIdAndDelete(id);
 
-// Without findByIdAndDelete you have to do both the find and the delete.
-export const delete2Checkout = async (id) => {
-    const Checkout = await Checkout.findById(id);
-    await Checkout.remove();
-    return Checkout;
-};
-
-export const updateCheckout = async (id, data) =>
+export const updateCheckout = async (id: ObjectId, data: ICheckout) =>
     Checkout.findByIdAndUpdate(id, data, {
         runValidators: true,
         new: true,
     });
 
-export const createManyCheckouts = async (payloads) => {
+export const createManyCheckouts = async (payloads: ICheckout[]) => {
     const createPromises = payloads.map((payload) => createCheckout(payload));
     return Promise.allSettled(createPromises);
 };
