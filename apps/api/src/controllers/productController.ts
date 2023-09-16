@@ -17,9 +17,11 @@ import {
 } from "../services/index.js";
 
 import { ApiError } from "../utils/index.js";
+import { IProduct } from "../models/productModel.js";
+import { ObjectId } from "mongoose";
 
 export const handleCreateProduct = async (
-    req: Request,
+    req: Request<{}, {}, IProduct>,
     res: Response,
     next: NextFunction
 ) => {
@@ -28,9 +30,9 @@ export const handleCreateProduct = async (
         return res.json(product);
     } catch (error) {
         /*
-        Pass the error along to the next middleware function that happens before
-        the response. See the middleware being added in `main.js` with `app.use`.
-        */
+         * Pass the error along to the next middleware function that happens before
+         * the response. See the middleware being added in `main.js` with `app.use`.
+         */
         return next(error);
     }
 };
@@ -76,7 +78,7 @@ export const handleGetAllProductsPriceSortedDesc = async (
 };
 
 export const handleGetOneProduct = async (
-    req: Request,
+    req: Request<{ id: ObjectId }>,
     res: Response,
     next: NextFunction
 ) => {
@@ -89,7 +91,7 @@ export const handleGetOneProduct = async (
 };
 
 export const handleDeleteProduct = async (
-    req: Request,
+    req: Request<{ id: ObjectId }>,
     res: Response,
     next: NextFunction
 ) => {
@@ -102,7 +104,7 @@ export const handleDeleteProduct = async (
 };
 
 export const handleUpdateProduct = async (
-    req: Request,
+    req: Request<{ id: ObjectId }, {}, IProduct>,
     res: Response,
     next: NextFunction
 ) => {
@@ -115,7 +117,7 @@ export const handleUpdateProduct = async (
 };
 
 export const handleCreateManyProducts = async (
-    req: Request,
+    req: Request<{}, {}, IProduct[]>,
     res: Response,
     next: NextFunction
 ) => {
@@ -124,6 +126,7 @@ export const handleCreateManyProducts = async (
             throw new ApiError({
                 message: "Request body must be an array.",
                 statusCode: 400,
+                cause: undefined,
             });
         }
         const settledCreateOutcomes = await createManyProducts(req.body);

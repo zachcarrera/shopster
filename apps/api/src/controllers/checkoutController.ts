@@ -15,9 +15,11 @@ import {
 } from "../services/index.js";
 
 import { ApiError } from "../utils/index.js";
+import { ICheckout } from "../models/checkoutModel.js";
+import { ObjectId } from "mongoose";
 
 export const handleCreateCheckout = async (
-    req: Request,
+    req: Request<{}, {}, ICheckout>,
     res: Response,
     next: NextFunction
 ) => {
@@ -26,9 +28,9 @@ export const handleCreateCheckout = async (
         return res.json(checkout);
     } catch (error) {
         /*
-        Pass the error along to the next middleware function that happens before
-        the response. See the middleware being added in `main.js` with `app.use`.
-        */
+         * Pass the error along to the next middleware function that happens before
+         * the response. See the middleware being added in `main.js` with `app.use`.
+         */
         return next(error);
     }
 };
@@ -48,7 +50,7 @@ export const handleGetAllCheckouts = async (
 };
 
 export const handleGetOneCheckout = async (
-    req: Request,
+    req: Request<{ id: ObjectId }>,
     res: Response,
     next: NextFunction
 ) => {
@@ -61,7 +63,7 @@ export const handleGetOneCheckout = async (
 };
 
 export const handleDeleteCheckout = async (
-    req: Request,
+    req: Request<{ id: ObjectId }>,
     res: Response,
     next: NextFunction
 ) => {
@@ -74,7 +76,7 @@ export const handleDeleteCheckout = async (
 };
 
 export const handleUpdateCheckout = async (
-    req: Request,
+    req: Request<{ id: ObjectId }, {}, ICheckout>,
     res: Response,
     next: NextFunction
 ) => {
@@ -87,7 +89,7 @@ export const handleUpdateCheckout = async (
 };
 
 export const handleCreateManyCheckouts = async (
-    req: Request,
+    req: Request<{}, {}, ICheckout[]>,
     res: Response,
     next: NextFunction
 ) => {
@@ -96,6 +98,7 @@ export const handleCreateManyCheckouts = async (
             throw new ApiError({
                 message: "Request body must be an array.",
                 statusCode: 400,
+                cause: undefined,
             });
         }
         const settledCreateOutcomes = await createManyCheckouts(req.body);
