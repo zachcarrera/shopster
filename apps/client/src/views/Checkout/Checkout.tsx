@@ -12,6 +12,7 @@ export const Checkout = () => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState(0);
     const [cardNumber, setCardNumber] = useState(0);
+    // TODO: update type to date value
     const [cardExp, setCardExp] = useState(0);
     const [cardCVC, setCardCVC] = useState(0);
     const [zipCode, setZipCode] = useState(0);
@@ -20,7 +21,7 @@ export const Checkout = () => {
 
     const [errorList, setErrorList] = useState([]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         axios
             .post(`http://localhost:8000/api/checkouts/new`, {
@@ -50,7 +51,7 @@ export const Checkout = () => {
     };
 
     const total = cart.reduce(
-        (sum, product) => sum + product.price * product.quantity,
+        (sum: number, product) => sum + product.price * product.quantity,
         0
     );
 
@@ -142,10 +143,7 @@ export const Checkout = () => {
 
                     <div className="bg-white py-12 md:py-24">
                         <div className="mx-auto max-w-lg px-4 lg:px-8">
-                            <form
-                                className="grid grid-cols-6 gap-4"
-                                onSubmit={handleSubmit}
-                            >
+                            <form className="grid grid-cols-6 gap-4" onSubmit={handleSubmit}>
                                 <div className="col-span-3">
                                     <label
                                         htmlFor="FirstName"
@@ -159,9 +157,7 @@ export const Checkout = () => {
                                         value={firstName}
                                         type="text"
                                         className="mt-1 p-2 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                                        onChange={(event) =>
-                                            setFirstName(event.target.value)
-                                        }
+                                        onChange={(event) => setFirstName(event.target.value)}
                                     />
                                 </div>
 
@@ -178,9 +174,7 @@ export const Checkout = () => {
                                         value={lastName}
                                         type="text"
                                         className="mt-1 p-2 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                                        onChange={(event) =>
-                                            setLastName(event.target.value)
-                                        }
+                                        onChange={(event) => setLastName(event.target.value)}
                                     />
                                 </div>
 
@@ -197,9 +191,7 @@ export const Checkout = () => {
                                         value={email}
                                         type="email"
                                         className="mt-1 p-2 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                                        onChange={(event) =>
-                                            setEmail(event.target.value)
-                                        }
+                                        onChange={(event) => setEmail(event.target.value)}
                                     />
                                 </div>
 
@@ -216,9 +208,7 @@ export const Checkout = () => {
                                         value={phone}
                                         type="number"
                                         className="mt-1 p-2 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                                        onChange={(event) =>
-                                            setPhone(event.target.value)
-                                        }
+                                        onChange={(event) => setPhone(event.target.valueAsNumber)}
                                     />
                                 </div>
 
@@ -238,9 +228,7 @@ export const Checkout = () => {
                                             placeholder="Card Number"
                                             className="relative mt-1 p-2 w-full rounded-t-md border-gray-200 focus:z-10 sm:text-sm"
                                             onChange={(event) =>
-                                                setCardNumber(
-                                                    event.target.value
-                                                )
+                                                setCardNumber(event.target.valueAsNumber)
                                             }
                                         />
                                     </div>
@@ -261,9 +249,7 @@ export const Checkout = () => {
                                                 placeholder="Expiry Date"
                                                 className="relative p-2 w-full rounded-bl-md border-gray-200 focus:z-10 sm:text-sm"
                                                 onChange={(event) =>
-                                                    setCardExp(
-                                                        event.target.value
-                                                    )
+                                                    setCardExp(event.target.valueAsNumber)
                                                 }
                                             />
                                         </div>
@@ -279,13 +265,11 @@ export const Checkout = () => {
                                             <input
                                                 name="cardCVC"
                                                 value={cardCVC}
-                                                type="text"
+                                                type="number"
                                                 placeholder="CVC"
                                                 className="relative p-2 w-full rounded-br-md border-gray-200 focus:z-10 sm:text-sm"
                                                 onChange={(event) =>
-                                                    setCardCVC(
-                                                        event.target.value
-                                                    )
+                                                    setCardCVC(event.target.valueAsNumber)
                                                 }
                                             />
                                         </div>
@@ -317,7 +301,7 @@ export const Checkout = () => {
                                         <div>
                                             <label
                                                 className="block text-xs font-medium text-gray-700"
-                                                for="PostalCode"
+                                                htmlFor="PostalCode"
                                             >
                                                 ZIP/Post Code
                                             </label>
@@ -325,14 +309,12 @@ export const Checkout = () => {
                                             <input
                                                 name="zipCode"
                                                 value={zipCode}
-                                                type="text"
+                                                type="number"
                                                 id="PostalCode"
                                                 placeholder="ZIP/Post Code"
                                                 className="relative p-2 w-full rounded-b-md border-gray-200 focus:z-10 sm:text-sm"
                                                 onChange={(event) =>
-                                                    setZipCode(
-                                                        event.target.value
-                                                    )
+                                                    setZipCode(event.target.valueAsNumber)
                                                 }
                                             />
                                         </div>
