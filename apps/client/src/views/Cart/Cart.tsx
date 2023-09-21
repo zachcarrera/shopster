@@ -7,20 +7,20 @@ import { CartContext } from "../../context";
 export const Cart = () => {
     const [cart, setCart] = useContext(CartContext);
 
-    const handleCartDelete = (deleteId) => {
+    const handleCartDelete = (deleteId: string) => {
         const newCart = cart.filter((product) => deleteId !== product._id);
 
         setCart(newCart);
     };
 
     const subtotal = cart.reduce(
-        (sum, product) => sum + product.price * product.quantity,
+        (sum: number, product) => sum + product.price * product.quantity,
         0
     );
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             {/* <!--
             This component uses @tailwindcss/forms
 
@@ -59,19 +59,14 @@ export const Cart = () => {
                             )}
                             <ul className="space-y-4">
                                 {cart.map((product) => (
-                                    <li
-                                        key={product._id}
-                                        className="flex items-center gap-4"
-                                    >
+                                    <li key={product._id} className="flex items-center gap-4">
                                         <img
                                             src={product.image}
                                             alt={`${product.name} thumbnail`}
                                             className="h-16 w-16 rounded object-cover"
                                         />
                                         <div>
-                                            <h3 className="text-sm text-gray-900">
-                                                {product.name}
-                                            </h3>
+                                            <h3 className="text-sm text-gray-900">{product.name}</h3>
 
                                             {/* <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
                                                 <div>
@@ -113,15 +108,9 @@ export const Cart = () => {
 
                                             <button
                                                 className="text-gray-600 transition hover:text-red-600"
-                                                onClick={(event) =>
-                                                    handleCartDelete(
-                                                        product._id
-                                                    )
-                                                }
+                                                onClick={() => handleCartDelete(product._id)}
                                             >
-                                                <span className="sr-only">
-                                                    Remove item
-                                                </span>
+                                                <span className="sr-only">Remove item</span>
 
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
