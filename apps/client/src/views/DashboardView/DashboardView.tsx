@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../../components";
+import { Product } from "../OneProductView/OneProductView";
 import axios from "axios";
 
 export const DashboardView = () => {
-    const [productList, SetProductList] = useState([]);
+    const [productList, SetProductList] = useState<Product[]>([]);
 
     useEffect(() => {
         axios
@@ -15,7 +16,7 @@ export const DashboardView = () => {
             .catch((error) => console.log(error));
     }, []);
 
-    const handleSort = (event) => {
+    const handleSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const sort = event.target.value;
         let sortQuery = "";
 
@@ -64,12 +65,8 @@ export const DashboardView = () => {
                                                 <option value="Title, ASC">
                                                     Title, ASC
                                                 </option> */}
-                                    <option value="price-desc">
-                                        Price, DESC
-                                    </option>
-                                    <option value="price-asc">
-                                        Price, ASC
-                                    </option>
+                                    <option value="price-desc">Price, DESC</option>
+                                    <option value="price-asc">Price, ASC</option>
                                 </select>
                             </div>
                             {/* <div>
@@ -239,8 +236,8 @@ export const DashboardView = () => {
                                     Product Collection
                                 </h2>
                                 <p className="mt-4 max-w-md text-gray-500">
-                                    Buy and sell your favorite products at the
-                                    Shopster Marketplace
+                                    Buy and sell your favorite products at the Shopster
+                                    Marketplace
                                 </p>
                             </header>
                         </div>
@@ -263,9 +260,7 @@ export const DashboardView = () => {
                                                 {product.name}
                                             </h3>
                                             <p className="mt-2">
-                                                <span className="sr-only">
-                                                    Regular Price
-                                                </span>
+                                                <span className="sr-only">Regular Price</span>
                                                 <span className="tracking-wider text-gray-900">
                                                     ${product.price}
                                                 </span>
