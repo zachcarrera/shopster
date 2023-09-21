@@ -5,6 +5,7 @@ import { Navbar } from "../../components";
 import { CartContext } from "../../context";
 
 export type Product = {
+    _id: string;
     name: string;
     inStock: boolean;
     image: string;
