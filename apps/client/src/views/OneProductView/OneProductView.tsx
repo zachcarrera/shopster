@@ -4,9 +4,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Navbar } from "../../components";
 import { CartContext } from "../../context";
 
+export type Product = {
+    name: string;
+    inStock: boolean;
+    image: string;
+    price: number;
+    description: string;
+};
+
 export const OneProductView = () => {
     const [cart, setCart] = useContext(CartContext);
-    const [product, setProduct] = useState("");
+    const [product, setProduct] = useState<Product>();
     const [quantity, setQuantity] = useState(1);
     const navigate = useNavigate();
 
@@ -19,7 +27,7 @@ export const OneProductView = () => {
             .catch((error) => console.log(error));
     }, [_id]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const cartProduct = {
@@ -30,6 +38,11 @@ export const OneProductView = () => {
         setCart([...cart, cartProduct]);
         navigate("/cart");
     };
+
+    // FIXME: create a loading component
+    if (!product) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div>
@@ -73,9 +86,7 @@ export const OneProductView = () => {
                                     </h1>
 
                                     <p className="text-sm">
-                                        {product.inStock
-                                            ? "In stock"
-                                            : "Not in stock"}
+                                        {product.inStock ? "In stock" : "Not in stock"}
                                     </p>
 
                                     {/* <div className="-ml-0.5 flex">
@@ -126,9 +137,7 @@ export const OneProductView = () => {
                                     </div> */}
                                 </div>
 
-                                <p className="text-lg font-bold">
-                                    ${product.price}
-                                </p>
+                                <p className="text-lg font-bold">${product.price}</p>
                             </div>
 
                             <div className="mt-4">
@@ -288,10 +297,7 @@ export const OneProductView = () => {
 
                                 <div className="mt-8 flex gap-4">
                                     <div>
-                                        <label
-                                            htmlFor="quantity"
-                                            className="sr-only"
-                                        >
+                                        <label htmlFor="quantity" className="sr-only">
                                             Qty
                                         </label>
 
@@ -301,9 +307,7 @@ export const OneProductView = () => {
                                             min="1"
                                             value={quantity}
                                             onChange={(event) =>
-                                                setQuantity(
-                                                    event.target.valueAsNumber
-                                                )
+                                                setQuantity(event.target.valueAsNumber)
                                             }
                                             className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                                         />
