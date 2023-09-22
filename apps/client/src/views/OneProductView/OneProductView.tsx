@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { Navbar } from "../../components";
-import { CartContext } from "../../context";
+import { useCartContext } from "../../context";
 
 export type Product = {
     _id: string;
@@ -16,6 +16,8 @@ export type Product = {
 export type CartProduct = Product & { quantity: number };
 
 export const OneProductView = () => {
+    const [cart, setCart] = useCartContext();
+
     const [product, setProduct] = useState<Product>();
     const [quantity, setQuantity] = useState(1);
     const navigate = useNavigate();
@@ -28,12 +30,6 @@ export const OneProductView = () => {
             .then((res) => setProduct(res.data))
             .catch((error) => console.log(error));
     }, [_id]);
-
-    const context = useContext(CartContext);
-    if (!context) {
-        return;
-    }
-    const [cart, setCart] = context;
 
     // FIXME: create a loading component
     if (!product) {
