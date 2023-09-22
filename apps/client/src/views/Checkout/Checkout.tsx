@@ -1,10 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { CartContext } from "../../context";
+import { useCartContext } from "../../context";
 import { Navbar } from "../../components";
 
 export const Checkout = () => {
+    const [cart, setCart] = useCartContext();
+
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -18,12 +20,6 @@ export const Checkout = () => {
     const navigate = useNavigate();
 
     const [errorList, setErrorList] = useState([]);
-
-    const context = useContext(CartContext);
-    if (!context) {
-        return;
-    }
-    const [cart, setCart] = context;
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
