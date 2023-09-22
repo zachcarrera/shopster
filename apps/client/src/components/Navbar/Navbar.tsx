@@ -1,14 +1,9 @@
 import React from "react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../../context";
+import { useCartContext } from "../../context";
 
 export const Navbar = () => {
-    const context = useContext(CartContext);
-    if (!context) {
-        return;
-    }
-    const [cart] = context;
+    const [cart] = useCartContext();
 
     return (
         <nav className="border-b p-4 border-gray-500 flex justify-center gap-12">
