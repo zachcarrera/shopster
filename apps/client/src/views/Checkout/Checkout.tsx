@@ -5,8 +5,6 @@ import { CartContext } from "../../context";
 import { Navbar } from "../../components";
 
 export const Checkout = () => {
-    const [cart, setCart] = useContext(CartContext);
-
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -20,6 +18,12 @@ export const Checkout = () => {
     const navigate = useNavigate();
 
     const [errorList, setErrorList] = useState([]);
+
+    const context = useContext(CartContext);
+    if (!context) {
+        return;
+    }
+    const [cart, setCart] = context;
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

@@ -16,7 +16,6 @@ export type Product = {
 export type CartProduct = Product & { quantity: number };
 
 export const OneProductView = () => {
-    const [cart, setCart] = useContext(CartContext);
     const [product, setProduct] = useState<Product>();
     const [quantity, setQuantity] = useState(1);
     const navigate = useNavigate();
@@ -30,6 +29,17 @@ export const OneProductView = () => {
             .catch((error) => console.log(error));
     }, [_id]);
 
+    const context = useContext(CartContext);
+    if (!context) {
+        return;
+    }
+    const [cart, setCart] = context;
+
+    // FIXME: create a loading component
+    if (!product) {
+        return <div>Loading...</div>;
+    }
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -41,11 +51,6 @@ export const OneProductView = () => {
         setCart([...cart, cartProduct]);
         navigate("/cart");
     };
-
-    // FIXME: create a loading component
-    if (!product) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <div>

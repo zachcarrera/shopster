@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../../context";
 
 export const Navbar = () => {
-    const [cart] = useContext(CartContext);
+    const context = useContext(CartContext);
+    if (!context) {
+        return;
+    }
+    const [cart] = context;
 
     return (
         <nav className="border-b p-4 border-gray-500 flex justify-center gap-12">

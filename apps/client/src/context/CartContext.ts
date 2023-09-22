@@ -1,2 +1,7 @@
 import { createContext } from "react";
-export const CartContext = createContext();
+import { CartProduct } from "../views/OneProductView/OneProductView";
+
+type CartContextType = [CartProduct[], (cart: CartProduct[]) => void];
+export const CartContext = createContext<CartContextType | undefined>(
+  undefined
+);

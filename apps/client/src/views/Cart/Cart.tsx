@@ -5,7 +5,11 @@ import { Navbar } from "../../components";
 import { CartContext } from "../../context";
 
 export const Cart = () => {
-    const [cart, setCart] = useContext(CartContext);
+    const context = useContext(CartContext);
+    if (!context) {
+        return;
+    }
+    const [cart, setCart] = context;
 
     const handleCartDelete = (deleteId: string) => {
         const newCart = cart.filter((product) => deleteId !== product._id);

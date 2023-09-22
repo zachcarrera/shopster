@@ -10,9 +10,10 @@ import {
 } from "./views";
 import { useState } from "react";
 import { CartContext } from "./context";
+import { CartProduct } from "./views/OneProductView/OneProductView";
 
 function App() {
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState<CartProduct[]>([]);
     return (
         <div>
             <CartContext.Provider value={[cart, setCart]}>
