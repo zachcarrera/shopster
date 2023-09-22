@@ -8,15 +8,12 @@ import {
     Fail,
     Create,
 } from "./views";
-import { useState } from "react";
-import { CartContext } from "./context";
-import { CartProduct } from "./views/OneProductView/OneProductView";
+import { CartProvider } from "./context";
 
 function App() {
-    const [cart, setCart] = useState<CartProduct[]>([]);
     return (
         <div>
-            <CartContext.Provider value={[cart, setCart]}>
+            <CartProvider>
                 <Routes>
                     <Route path="/" element={<DashboardView />} />
                     <Route path="/cart" element={<Cart />} />
@@ -26,7 +23,7 @@ function App() {
                     <Route path="/success/:_id" element={<Success />} />
                     <Route path="/fail" element={<Fail />} />
                 </Routes>
-            </CartContext.Provider>
+            </CartProvider>
         </div>
     );
 }
