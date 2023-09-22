@@ -1,15 +1,10 @@
 import React from "react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../../components";
-import { CartContext } from "../../context";
+import { useCartContext } from "../../context";
 
 export const Cart = () => {
-    const context = useContext(CartContext);
-    if (!context) {
-        return;
-    }
-    const [cart, setCart] = context;
+    const [cart, setCart] = useCartContext();
 
     const handleCartDelete = (deleteId: string) => {
         const newCart = cart.filter((product) => deleteId !== product._id);
