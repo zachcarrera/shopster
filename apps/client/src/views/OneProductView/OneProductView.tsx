@@ -13,6 +13,8 @@ export type Product = {
     description: string;
 };
 
+export type CartProduct = Product & { quantity: number };
+
 export const OneProductView = () => {
     const [cart, setCart] = useContext(CartContext);
     const [product, setProduct] = useState<Product>();
