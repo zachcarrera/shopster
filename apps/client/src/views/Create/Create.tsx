@@ -12,7 +12,7 @@ export const Create = () => {
 
     const navigate = useNavigate();
 
-    const [errorList, setErrorList] = useState([]);
+    const [errorList, setErrorList] = useState<string[]>([]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
