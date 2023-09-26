@@ -58,16 +58,6 @@ export const Checkout = () => {
     return (
         <>
             <Navbar />
-
-            {/*     
-            This component uses @tailwindcss/forms
-
-            yarn add @tailwindcss/forms
-            npm install @tailwindcss/forms
-
-            plugins: [require('@tailwindcss/forms')]
-            */}
-
             <section>
                 <h1 className="sr-only">Checkout</h1>
 

@@ -20,27 +20,6 @@ export const Cart = () => {
     return (
         <div>
             <Navbar />
-            {/* <!--
-            This component uses @tailwindcss/forms
-
-            yarn add @tailwindcss/forms
-            npm install @tailwindcss/forms
-
-            plugins: [require('@tailwindcss/forms')]
-
-            @layer components {
-                .no - spinner {
-                            -moz - appearance: textfield;
-                }
-
-                        .no-spinner::-webkit-outer-spin-button,
-                        .no-spinner::-webkit-inner-spin-button {
-                            margin: 0;
-                        -webkit-appearance: none;
-                }
-            }
-            --> */}
-
             <section>
                 <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
                     <div className="mx-auto max-w-3xl">

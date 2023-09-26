@@ -26,7 +26,7 @@ export const OneProductView = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8000/api/products/${_id}`)
+            .get<Product>(`http://localhost:8000/api/products/${_id}`)
             .then((res) => setProduct(res.data))
             .catch((error) => console.log(error));
     }, [_id]);
@@ -50,26 +50,6 @@ export const OneProductView = () => {
 
     return (
         <div>
-            {/* <!--
-                    This component uses @tailwindcss/forms and @tailwindcss/typography
-
-                    yarn add @tailwindcss/forms @tailwindcss/typography
-                    npm install @tailwindcss/forms @tailwindcss/typography
-
-                    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')]
-                
-                    @layer components {
-                    .no-spinner {
-                        -moz-appearance: textfield;
-                    }
-                
-                    .no-spinner::-webkit-outer-spin-button,
-                    .no-spinner::-webkit-inner-spin-button {
-                        margin: 0;
-                        -webkit-appearance: none;
-                    }
-                    }
-                --> */}
             <Navbar />
             <section>
                 <div className="relative mx-auto max-w-screen-xl px-4 py-8">

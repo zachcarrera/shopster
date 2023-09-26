@@ -9,7 +9,7 @@ export const DashboardView = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8000/api/products")
+            .get<Product[]>("http://localhost:8000/api/products")
             .then((res) => {
                 SetProductList(res.data);
             })
@@ -32,7 +32,7 @@ export const DashboardView = () => {
         }
 
         axios
-            .get(`http://localhost:8000/api/products${sortQuery}`)
+            .get<Product[]>(`http://localhost:8000/api/products${sortQuery}`)
             .then((res) => {
                 SetProductList(res.data);
             })
