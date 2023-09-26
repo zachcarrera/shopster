@@ -1,4 +1,0 @@
-/*
-You could add some middleware here to help deal with authorization and then
-import and use the middleware in the routes that require authorization.
-*/
