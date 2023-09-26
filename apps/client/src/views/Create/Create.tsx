@@ -12,9 +12,9 @@ export const Create = () => {
 
     const navigate = useNavigate();
 
-    const [errorList, setErrorList] = useState([]);
+    const [errorList, setErrorList] = useState<string[]>([]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         axios
             .post(`http://localhost:8000/api/products/new`, {
@@ -64,9 +64,7 @@ export const Create = () => {
                             name="description"
                             value={description}
                             className="border rounded w-full py-2 px-3"
-                            onChange={(event) =>
-                                setDescription(event.target.value)
-                            }
+                            onChange={(event) => setDescription(event.target.value)}
                         />
                     </div>
                     <div className="mb-4">
@@ -86,7 +84,7 @@ export const Create = () => {
                             name="price"
                             value={price}
                             className="border rounded w-full py-2 px-3"
-                            onChange={(event) => setPrice(event.target.value)}
+                            onChange={(event) => setPrice(event.target.valueAsNumber)}
                         />
                     </div>
                     <div className="mb-4">
@@ -96,9 +94,7 @@ export const Create = () => {
                             name="inStock"
                             className="w-4 h-4 rounded border"
                             checked={inStock}
-                            onChange={(event) =>
-                                setInStock(event.target.checked)
-                            }
+                            onChange={(event) => setInStock(event.target.checked)}
                         />
                     </div>
                     <button
